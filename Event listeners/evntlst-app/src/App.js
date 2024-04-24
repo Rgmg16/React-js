@@ -13,18 +13,28 @@ function App() {
     setKey(evnt.key);
   };
 
-  const [isHovered, setIsHovered]= useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
-  const hmo = ()=>{
+  const hmo = () => {
     setIsHovered(true);
   };
 
-  const hm0 = ()=>{
+  const hm0 = () => {
     setIsHovered(false);
   };
 
   const handleDrag = () => {
     alert("Where are you taking me!?");
+  };
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+  };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    const data = event.dataTransfer.getData('text/plain');
+    alert('Dropped data:', data);
   };
 
   return (
@@ -50,22 +60,27 @@ function App() {
       </div>
 
       <div
-      draggable={true}
-      onDrag={handleDrag}
-      style={{
-        width: '200px',
-        height: '200px',
-        backgroundColor: 'lightblue',
-        color: 'black',
-        textAlign: 'center',
-        lineHeight: '200px',
-      }}
-    >
-      An innocent bystander
-    </div>
+        draggable={true}
+        onDragStart={handleDrag}
+        style={{
+          width: '200px',
+          height: '200px',
+          backgroundColor: 'lightblue',
+          color: 'black',
+          textAlign: 'center',
+          lineHeight: '200px',
+        }}
+      >
+        An innocent bystander
+      </div>
 
-    </div>
-  );
+      <div>
+        <button onDragOver={handleDragOver}
+          onDrop={handleDrop}
+          style={{ width: '200px', height: '200px', backgroundColor: 'lightgray' }}>Drop here!</button>
+      </div>
+
+      </div>);
 }
 
-export default App;
+      export default App;
